@@ -1,0 +1,13 @@
+{
+  "name": "afnuz-academy",
+  "version": "1.0.0",
+  "description": "Afnuz Academy website + Vercel backend",
+  "scripts": {
+    "build": "",
+    "start": ""
+  },
+  "dependencies": {
+    "nodemailer": "latest"
+  },
+  "license": "ISC"
+}
