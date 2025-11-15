@@ -1,6 +1,24 @@
 // script.js - Afnuz Academy Frontend (Vercel + Render Compatible)
 
-const API_URL = "https://afnuz-academy2.onrender.com/api/contact";
+// AUTO HEALTH CHECK BEFORE ENABLE FORM
+const API_BASE = "https://afnuz-academy2.onrender.com";
+const API_URL = `${API_BASE}/api/contact`;
+
+async function checkBackend() {
+    try {
+        const res = await fetch(`${API_BASE}/api/health`);
+        const data = await res.json();
+        if (res.ok && data.status === "OK") {
+            console.log("Backend is ready ✔");
+            showStatus("Backend connected ✔ You can submit the form now.", "success");
+        }
+    } catch (e) {
+        showStatus("Backend waking up... please wait 5–8 seconds ⏳", "info");
+        setTimeout(checkBackend, 5000);
+    }
+}
+checkBackend();
+
 
 // === PRELOADER ===
 window.addEventListener('load', () => {
@@ -54,7 +72,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 }
 
             } catch (err) {
-                showStatus('Network error. Please try again.', 'error');
+                showStatus('Network error — backend is waking up. Try again in 5 seconds.', 'error');
                 console.error("Form error:", err);
             } finally {
                 submitBtn.disabled = false;
